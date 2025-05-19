@@ -1,10 +1,13 @@
 const express = require("express");
 const cors = require("cors");
+const connectDB = require("./connectDB");
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
+
+connectDB();
 
 app.get("/test", (req, res) => {
   res.send("Server is running");
