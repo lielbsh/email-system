@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import EmailsList from "../components/EmailsList";
 
 const HomePage = () => {
   const [emails, setEmails] = useState([]);
@@ -43,22 +44,7 @@ const HomePage = () => {
     return () => clearInterval(intervalId);
   }, [view, user, searchTerm]);
 
-  return (
-    <div className="email-list">
-      {emails.map((email) => (
-        <div key={email._id} className="email-item">
-          <div>
-            {email.from?.firstName} {email.from?.lastName}
-          </div>
-          <div>
-            {email.subject || "(No subject)"}
-            {email.updatedAt}
-          </div>
-          <div>{email.body}</div>
-        </div>
-      ))}
-    </div>
-  );
+  return <EmailsList emails={emails} />;
 };
 
 export default HomePage;
