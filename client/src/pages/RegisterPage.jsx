@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "./AuthForm.css";
 
 const RegisterPage = () => {
   const [formData, setFormData] = useState({
@@ -32,34 +33,39 @@ const RegisterPage = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        name="firstName"
-        value={formData.firstName}
-        onChange={handleChange}
-        placeholder="First Name"
-      />
-      <input
-        name="lastName"
-        value={formData.lastName}
-        onChange={handleChange}
-        placeholder="Last Name"
-      />
-      <input
-        name="emailAddress"
-        value={formData.emailAddress}
-        onChange={handleChange}
-        placeholder="Email Address"
-      />
-      <input
-        name="password"
-        type="password"
-        value={formData.password}
-        onChange={handleChange}
-        placeholder="Password"
-      />
-      <button type="submit">Register</button>
-    </form>
+    <div className="auth-container">
+      <h2>SIGN-UP</h2>
+      <div>
+        <form onSubmit={handleSubmit} className="auth-form">
+          <input
+            name="firstName"
+            value={formData.firstName}
+            onChange={handleChange}
+            placeholder="First Name"
+          />
+          <input
+            name="lastName"
+            value={formData.lastName}
+            onChange={handleChange}
+            placeholder="Last Name"
+          />
+          <input
+            name="emailAddress"
+            value={formData.emailAddress}
+            onChange={handleChange}
+            placeholder="Email Address"
+          />
+          <input
+            name="password"
+            type="password"
+            value={formData.password}
+            onChange={handleChange}
+            placeholder="Password"
+          />
+          <button type="submit">Sign-Up</button>
+        </form>
+      </div>
+    </div>
   );
 };
 
