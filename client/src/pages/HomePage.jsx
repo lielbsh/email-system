@@ -10,11 +10,36 @@ const HomePage = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [user, setUser] = useState(null);
   const [selectedEmail, setSelectedEmail] = useState(null);
+  const [recipients, setRecipients] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
     setSelectedEmail(null);
   }, [view]);
+
+  useEffect(() => {
+    const fetchRecipients = async () => {
+      if (
+        !selectedEmail ||
+        !selectedEmail.to ||
+        selectedEmail.to.length === 0
+      ) {
+        setRecipients([]);
+        return;
+      }
+
+      const res = await fetch("emails/users", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ids: selectedEmail.to }),
+      });
+
+      const data = await res.json();
+      setRecipients(data);
+    };
+
+    fetchRecipients();
+  }, [selectedEmail]);
 
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem("user"));
@@ -68,6 +93,13 @@ const HomePage = () => {
         {selectedEmail && (
           <div>
             <div>{selectedEmail.subject || "(No subject)"}</div>
+            To:
+            {recipients.map((recipient, index) => (
+              <span key={index}>
+                {recipient.firstName} {recipient.lastName}
+                {index < recipients.length - 1 ? ", " : ""}
+              </span>
+            ))}
             <div>{selectedEmail.body}</div>
           </div>
         )}

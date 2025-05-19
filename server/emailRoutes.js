@@ -113,6 +113,19 @@ router.put("/", async (req, res) => {
   }
 });
 
+router.post("/users", async (req, res) => {
+  try {
+    const ids = req.body.ids;
+    const users = await User.find(
+      { _id: { $in: ids } },
+      "firstName lastName"
+    ).lean();
+    res.json(users);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 router.get("/search", async (req, res) => {
   try {
     const { userId, search, box = "inbox" } = req.query;
