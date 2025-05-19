@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import EmailsList from "../components/EmailsList";
 import Header from "../components/Header";
+import "./HomePage.css";
 
 const HomePage = () => {
   const [emails, setEmails] = useState([]);
@@ -56,6 +57,7 @@ const HomePage = () => {
         user={user}
         onViewChange={handleViewChange}
         onSearch={setSearchTerm}
+        currentView={view}
       />
       <EmailsList emails={emails} />
     </div>

@@ -1,25 +1,34 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-const Header = ({ user, onViewChange, onSearch }) => {
+const Header = ({ user, onViewChange, onSearch, currentView }) => {
   const navigate = useNavigate();
 
   return (
-    <div>
-      <div>
-        <button onClick={() => onViewChange("inbox")}>Inbox</button>
-        <button onClick={() => onViewChange("outbox")}>Outbox</button>
-        <button onClick={() => onViewChange("drafts")}>Drafts</button>
+    <div className="header-container">
+      <div className="nav-buttons">
+        {["inbox", "outbox", "drafts"].map((view) => (
+          <button
+            key={view}
+            onClick={() => onViewChange(view)}
+            className={currentView === view ? "active" : ""}
+          >
+            {view.charAt(0).toUpperCase() + view.slice(1)}
+          </button>
+        ))}
       </div>
 
       <input
+        className="search-input"
         type="text"
         placeholder="Search"
         onChange={(e) => onSearch(e.target.value)}
       />
-      <button onClick={() => navigate("/compose")}>New Email</button>
+      <button className="compose-button" onClick={() => navigate("/compose")}>
+        New Email
+      </button>
 
-      <div>
+      <div className="user-circle">
         {`${user?.firstName?.charAt(0) || ""}${
           user?.lastName?.charAt(0) || ""
         }`}
