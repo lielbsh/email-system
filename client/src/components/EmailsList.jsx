@@ -1,6 +1,9 @@
 import React from "react";
 
 const EmailsList = ({ emails }) => {
+  if (!emails) {
+    return <p>No emails to show.</p>;
+  }
   return (
     <div className="email-list">
       {emails.map((email) => (

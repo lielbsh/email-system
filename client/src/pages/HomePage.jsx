@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import EmailsList from "../components/EmailsList";
+import Header from "../components/Header";
 
 const HomePage = () => {
   const [emails, setEmails] = useState([]);
@@ -16,7 +17,7 @@ const HomePage = () => {
       navigate("/login");
     } else {
       setUser(storedUser);
-      console.log(storedUser);
+      console.log("storedUser", storedUser);
     }
   }, [navigate]);
 
@@ -32,6 +33,7 @@ const HomePage = () => {
       try {
         const res = await fetch(url);
         const data = await res.json();
+        console.log("emails:", data);
         setEmails(data);
       } catch (err) {
         console.error("Failed to fetch emails:", err);
@@ -44,7 +46,20 @@ const HomePage = () => {
     return () => clearInterval(intervalId);
   }, [view, user, searchTerm]);
 
-  return <EmailsList emails={emails} />;
+  const handleViewChange = (newView) => {
+    setView(newView);
+  };
+
+  return (
+    <div>
+      <Header
+        user={user}
+        onViewChange={handleViewChange}
+        onSearch={setSearchTerm}
+      />
+      <EmailsList emails={emails} />
+    </div>
+  );
 };
 
 export default HomePage;
