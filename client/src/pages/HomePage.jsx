@@ -88,21 +88,29 @@ const HomePage = () => {
         onSearch={setSearchTerm}
         currentView={view}
       />
-      <div>
-        <EmailsList emails={emails} onSelectEmail={setSelectedEmail} />
-        {selectedEmail && (
-          <div>
-            <div>{selectedEmail.subject || "(No subject)"}</div>
-            To:
-            {recipients.map((recipient, index) => (
-              <span key={index}>
-                {recipient.firstName} {recipient.lastName}
-                {index < recipients.length - 1 ? ", " : ""}
-              </span>
-            ))}
-            <div>{selectedEmail.body}</div>
-          </div>
-        )}
+      <div className="main-content">
+        <div className="email-list-container">
+          <EmailsList
+            emails={emails}
+            onSelectEmail={setSelectedEmail}
+            selectedEmail={selectedEmail}
+          />
+        </div>
+        <div className="open-email-container">
+          {selectedEmail && (
+            <div>
+              <div>{selectedEmail.subject || "(No subject)"}</div>
+              To:
+              {recipients.map((recipient, index) => (
+                <span key={index}>
+                  {recipient.firstName} {recipient.lastName}
+                  {index < recipients.length - 1 ? ", " : ""}
+                </span>
+              ))}
+              <div>{selectedEmail.body}</div>
+            </div>
+          )}
+        </div>
       </div>
     </div>
   );
