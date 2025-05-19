@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import EmailsList from "../components/EmailsList";
 import Header from "../components/Header";
+import NewEmailModal from "../components/NewEmailModal";
 import "./HomePage.css";
 
 const HomePage = () => {
@@ -11,6 +12,7 @@ const HomePage = () => {
   const [user, setUser] = useState(null);
   const [selectedEmail, setSelectedEmail] = useState(null);
   const [recipients, setRecipients] = useState([]);
+  const [showNewEmailModal, setShowNewEmailModal] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -82,11 +84,18 @@ const HomePage = () => {
 
   return (
     <div>
+      {showNewEmailModal && (
+        <NewEmailModal
+          fromUserId={user._id}
+          onClose={() => setShowNewEmailModal(false)}
+        />
+      )}
       <Header
         user={user}
         onViewChange={handleViewChange}
         onSearch={setSearchTerm}
         currentView={view}
+        onNewEmailClick={() => setShowNewEmailModal(true)}
       />
       <div className="main-content">
         <div className="email-list-container">

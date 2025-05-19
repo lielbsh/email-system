@@ -3,7 +3,13 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../AuthContext";
 import UserIcon from "./UserIcon";
 
-const Header = ({ user, onViewChange, onSearch, currentView }) => {
+const Header = ({
+  user,
+  onViewChange,
+  onSearch,
+  currentView,
+  onNewEmailClick,
+}) => {
   const navigate = useNavigate();
   const { logout } = useAuth();
 
@@ -32,7 +38,7 @@ const Header = ({ user, onViewChange, onSearch, currentView }) => {
         placeholder="Search"
         onChange={(e) => onSearch(e.target.value)}
       />
-      <button className="compose-button" onClick={() => navigate("/compose")}>
+      <button className="compose-button" onClick={onNewEmailClick}>
         New Email
       </button>
 
