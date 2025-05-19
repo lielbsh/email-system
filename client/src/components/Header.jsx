@@ -1,8 +1,16 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../AuthContext";
+import UserIcon from "./UserIcon";
 
 const Header = ({ user, onViewChange, onSearch, currentView }) => {
   const navigate = useNavigate();
+  const { logout } = useAuth();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/login");
+  };
 
   return (
     <div className="header-container">
@@ -28,11 +36,7 @@ const Header = ({ user, onViewChange, onSearch, currentView }) => {
         New Email
       </button>
 
-      <div className="user-circle">
-        {`${user?.firstName?.charAt(0) || ""}${
-          user?.lastName?.charAt(0) || ""
-        }`}
-      </div>
+      <UserIcon user={user} onClick={handleLogout} />
     </div>
   );
 };

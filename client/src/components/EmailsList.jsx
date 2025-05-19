@@ -1,4 +1,5 @@
 import React from "react";
+import UserIcon from "./UserIcon";
 
 const EmailsList = ({ emails }) => {
   if (!emails) {
@@ -8,9 +9,7 @@ const EmailsList = ({ emails }) => {
     <div className="email-list">
       {emails.map((email) => (
         <div key={email._id} className="email-item">
-          <div>
-            {email.from?.firstName} {email.from?.lastName}
-          </div>
+          <UserIcon user={email.from} onClick={() => {}} />
           <div>
             {email.subject || "(No subject)"}
             {email.updatedAt}
