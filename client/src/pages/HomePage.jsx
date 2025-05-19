@@ -4,6 +4,7 @@ import EmailsList from "../components/EmailsList";
 import Header from "../components/Header";
 import NewEmailModal from "../components/NewEmailModal";
 import "./HomePage.css";
+import UserIcon from "../components/UserIcon";
 
 const HomePage = () => {
   const [emails, setEmails] = useState([]);
@@ -108,14 +109,19 @@ const HomePage = () => {
         <div className="open-email-container">
           {selectedEmail && (
             <div>
-              <div>{selectedEmail.subject || "(No subject)"}</div>
-              To:
-              {recipients.map((recipient, index) => (
-                <span key={index}>
-                  {recipient.firstName} {recipient.lastName}
-                  {index < recipients.length - 1 ? ", " : ""}
-                </span>
-              ))}
+              <div className="email-header">
+                <UserIcon user={selectedEmail.from} />
+                <div className="text">
+                  <div>{selectedEmail.subject || "(No subject)"}</div>
+                  To:
+                  {recipients.map((recipient, index) => (
+                    <span key={index}>
+                      {recipient.firstName} {recipient.lastName}
+                      {index < recipients.length - 1 ? ", " : ""}
+                    </span>
+                  ))}
+                </div>
+              </div>
               <div>{selectedEmail.body}</div>
             </div>
           )}
