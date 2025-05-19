@@ -1,20 +1,34 @@
 import React from "react";
 import UserIcon from "./UserIcon";
 
-const EmailsList = ({ emails }) => {
+const EmailsList = ({ emails, onSelectEmail }) => {
   if (!emails) {
     return <p>No emails to show.</p>;
   }
   return (
     <div className="email-list">
       {emails.map((email) => (
-        <div key={email._id} className="email-item">
-          <UserIcon user={email.from} onClick={() => {}} />
+        <div
+          key={email._id}
+          className="email-item"
+          onClick={() => {
+            console.log("Clicked email:", email);
+            onSelectEmail(email);
+          }}
+        >
           <div>
-            {email.subject || "(No subject)"}
-            {email.updatedAt}
+            <UserIcon user={email.from} />
           </div>
-          <div>{email.body}</div>
+          <div>
+            <div>
+              {email.from.firstName} {email.from.lastName}
+            </div>
+            <div>
+              {email.subject || "(No subject)"}
+              {email.updatedAt}
+            </div>
+            <div>{email.body}</div>
+          </div>
         </div>
       ))}
     </div>

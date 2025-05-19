@@ -9,8 +9,12 @@ const HomePage = () => {
   const [view, setView] = useState("inbox");
   const [searchTerm, setSearchTerm] = useState("");
   const [user, setUser] = useState(null);
-
+  const [selectedEmail, setSelectedEmail] = useState(null);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    setSelectedEmail(null);
+  }, [view]);
 
   useEffect(() => {
     const storedUser = JSON.parse(localStorage.getItem("user"));
@@ -59,7 +63,15 @@ const HomePage = () => {
         onSearch={setSearchTerm}
         currentView={view}
       />
-      <EmailsList emails={emails} />
+      <div>
+        <EmailsList emails={emails} onSelectEmail={setSelectedEmail} />
+        {selectedEmail && (
+          <div>
+            <div>{selectedEmail.subject || "(No subject)"}</div>
+            <div>{selectedEmail.body}</div>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
